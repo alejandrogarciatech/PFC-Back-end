@@ -1,8 +1,8 @@
 package com.pfc.revisiones.app.inventario.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+//import jakarta.persistence.GeneratedValue;
+//import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 public class Equipo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     
     private String nombre;
@@ -23,6 +22,7 @@ public class Equipo {
     private double peso;
     private double dimensiones;
     private String ubicacion;
+
     public String getId() {
         return id;
     }
@@ -77,7 +77,4 @@ public class Equipo {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-
-
-
 }

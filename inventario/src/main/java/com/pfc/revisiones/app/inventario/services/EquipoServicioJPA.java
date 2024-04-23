@@ -37,8 +37,8 @@ public class EquipoServicioJPA implements EquipoServicio{
 
     @Override
     @Transactional
-    public Optional<Equipo> delete(Equipo equipo) {
-        Optional<Equipo> equipoOptional = repositorio.findById(equipo.getId());
+    public Optional<Equipo> delete(String id) {
+        Optional<Equipo> equipoOptional = repositorio.findById(id);
         equipoOptional.ifPresent(equipoDb -> {
             repositorio.delete(equipoDb);
         });
