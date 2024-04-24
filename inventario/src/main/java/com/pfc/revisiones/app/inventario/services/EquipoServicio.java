@@ -9,7 +9,11 @@ public interface EquipoServicio {
 
     List<Equipo> findAll();
     Optional<Equipo> findById(String id);
+
     Equipo save(Equipo equipo);
+    
+    Optional<Equipo> update(String id, Equipo equipo);
+
     Optional<Equipo> delete(String id);
 
 }

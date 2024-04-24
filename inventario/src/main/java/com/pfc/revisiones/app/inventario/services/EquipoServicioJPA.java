@@ -11,8 +11,7 @@ import com.pfc.revisiones.app.inventario.entities.Equipo;
 import com.pfc.revisiones.app.inventario.repositories.EquipoRepositorio;
 
 @Service
-public class EquipoServicioJPA implements EquipoServicio{
-
+public class EquipoServicioJPA implements EquipoServicio {
 
     @Autowired
     private EquipoRepositorio repositorio;
@@ -33,6 +32,28 @@ public class EquipoServicioJPA implements EquipoServicio{
     @Transactional
     public Equipo save(Equipo equipo) {
         return repositorio.save(equipo);
+    }
+
+    @Transactional
+    @Override
+    public Optional<Equipo> update(String id, Equipo equipo) {
+        Optional<Equipo> equipoOptional = repositorio.findById(id);
+        if (equipoOptional.isPresent()) {
+            Equipo equipoDb = equipoOptional.orElseThrow();
+
+            equipoDb.setId(equipo.getId());
+            equipoDb.setNombre(equipo.getNombre());
+            equipoDb.setTipoProducto(equipo.getTipoProducto());
+            equipoDb.setMarca(equipo.getMarca());
+            equipoDb.setModelo(equipo.getModelo());
+            equipoDb.setnSerie(equipo.getnSerie());
+            equipoDb.setPeso(equipo.getPeso());
+            equipoDb.setDimensiones(equipo.getDimensiones());
+            equipoDb.setUbicacion(equipo.getUbicacion());
+
+            return Optional.of(repositorio.save(equipoDb));
+        }
+        return equipoOptional;
     }
 
     @Override

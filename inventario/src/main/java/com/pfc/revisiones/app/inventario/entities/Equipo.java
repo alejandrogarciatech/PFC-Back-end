@@ -5,6 +5,11 @@ import jakarta.persistence.Entity;
 //import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.Size;
 
 @Entity
 
@@ -14,13 +19,20 @@ public class Equipo {
     @Id
     private String id;
     
+    @NotEmpty(message = "{NotEmpty.equipo.nombre}")
     private String nombre;
+
+    @Min(value = 500, message = "{Min.equipo.tipoProducto}")
+    @NotNull(message = "{NotNull.equipo.tipoProducto}")
     private Long tipoProducto;
+
     private String marca;
     private String modelo;
     private Long nSerie;
     private double peso;
     private double dimensiones;
+
+    @NotBlank(message = "{NotBlank.equipo.ubicacion}")
     private String ubicacion;
 
     public String getId() {
