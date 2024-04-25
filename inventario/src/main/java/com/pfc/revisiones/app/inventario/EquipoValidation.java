@@ -11,10 +11,11 @@ import com.pfc.revisiones.app.inventario.entities.Equipo;
 public class EquipoValidation implements Validator{
 
     @Override
-    public boolean supports(Class<?> clazz) {
+    public boolean supports(@SuppressWarnings("null") Class<?> clazz) {
         return Equipo.class.isAssignableFrom(clazz);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void validate(Object target, Errors errors) {
         Equipo equipo = (Equipo) target;
