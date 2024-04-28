@@ -3,7 +3,7 @@ package com.pfc.revisiones.app.inventario.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.support.BeanDefinitionDsl.Role;
+//import org.springframework.context.support.BeanDefinitionDsl.Role;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

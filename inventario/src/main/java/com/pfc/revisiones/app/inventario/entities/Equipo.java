@@ -31,7 +31,16 @@ public class Equipo {
     private Long nSerie;
     private double peso;
     private double dimensiones;
+    private String qrcode;
 
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String codigoBarras) {
+        this.qrcode = codigoBarras;
+    }
+    
     @NotBlank(message = "{NotBlank.equipo.ubicacion}")
     private String ubicacion;
 

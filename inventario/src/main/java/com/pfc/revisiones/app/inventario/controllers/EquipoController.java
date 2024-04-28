@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pfc.revisiones.app.inventario.EquipoValidation;
 import com.pfc.revisiones.app.inventario.entities.Equipo;
+import com.pfc.revisiones.app.inventario.services.QrCodeService;
 import com.pfc.revisiones.app.inventario.services.EquipoServicio;
 
 import jakarta.validation.Valid;
@@ -35,12 +36,12 @@ public class EquipoController {
     private EquipoValidation validation;
 
     @GetMapping
-    public List<Equipo> list(){
+    public List<Equipo> list() {
         return servicio.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> view(@PathVariable String id){
+    public ResponseEntity<?> view(@PathVariable String id) {
         Optional<Equipo> equipoOptional = servicio.findById(id);
         if (equipoOptional.isPresent()) {
             return ResponseEntity.ok(equipoOptional.orElseThrow());
@@ -48,30 +49,35 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
+    @Autowired
+    private QrCodeService barCodeService;
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Equipo equipo, BindingResult result){
+    public ResponseEntity<?> create(@Valid @RequestBody Equipo equipo, BindingResult result) throws Exception{
         validation.validate(equipo, result);
         if(result.hasFieldErrors()){
             return validation(result);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(servicio.save(equipo));
+        Equipo savedEquipo = servicio.save(equipo);
+        String qrCode = barCodeService.generateBarCode(savedEquipo.getId());
+        savedEquipo.setQrcode(qrCode);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEquipo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody Equipo equipo, BindingResult result, @PathVariable String id){
+    public ResponseEntity<?> update(@Valid @RequestBody Equipo equipo, BindingResult result, @PathVariable String id) {
         validation.validate(equipo, result);
-        if(result.hasFieldErrors()){
+        if (result.hasFieldErrors()) {
             return validation(result);
         }
         Optional<Equipo> equipoOptional = servicio.update(id, equipo);
         if (equipoOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(equipoOptional.orElseThrow());  
+            return ResponseEntity.status(HttpStatus.CREATED).body(equipoOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id){
+    public ResponseEntity<?> delete(@PathVariable String id) {
         Optional<Equipo> equipoOptional = servicio.delete(id);
         if (equipoOptional.isPresent()) {
             return ResponseEntity.ok(equipoOptional.orElseThrow());
@@ -82,7 +88,7 @@ public class EquipoController {
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errors = new HashMap<>();
 
-        result.getFieldErrors().forEach(err ->{
+        result.getFieldErrors().forEach(err -> {
             errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
