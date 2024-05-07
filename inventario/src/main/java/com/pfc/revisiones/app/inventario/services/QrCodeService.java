@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage; // Add this import statement
 import java.nio.file.Paths;
 import java.nio.file.Path; // Add this import statement
 
-
 @Service
 public class QrCodeService {
 
@@ -33,10 +32,29 @@ public class QrCodeService {
     public BufferedImage generateBarCodeImage(String barCodeText) throws Exception {
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BitMatrix bitMatrix = qrCodeWriter.encode(barCodeText, BarcodeFormat.QR_CODE, BARCODE_WIDTH, BARCODE_HEIGHT);
+            BitMatrix bitMatrix = qrCodeWriter.encode(barCodeText, BarcodeFormat.QR_CODE, BARCODE_WIDTH,
+                    BARCODE_HEIGHT);
             return MatrixToImageWriter.toBufferedImage(bitMatrix);
         } catch (Exception e) {
             throw new Exception("Error al generar la imagen del código QR", e);
         }
     }
+/*
+    @RequestMapping(value = "/api/qrcodes/{id}", method = RequestMethod.DELETE)
+    public static ResponseEntity<?> deleteQRCode(@PathVariable("id") String id) {
+        // Obtén la ruta de la imagen asociada al código QR
+        Path path = Paths.get("src/main/resources/static/barcodes/" + id + ".png");
+
+        // Elimina el código QR
+        QrCodeService.deleteQRCode(id);
+
+        // Elimina la imagen asociada al código QR
+        File imageFile = new File(path.toString());
+        if (imageFile.exists()) {
+            imageFile.delete();
+        }
+
+        return ResponseEntity.ok().build();
+    }
+    */
 }

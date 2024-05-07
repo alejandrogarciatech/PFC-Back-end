@@ -11,6 +11,10 @@ public interface EquipoServicio {
 
     Optional<Equipo> findById(String id);
 
+    Optional<Equipo> findByNombre(String nombre);
+
+    Optional<Equipo> findByTipoProducto(String tipoProducto);
+
     Equipo save(Equipo equipo);
 
     Optional<Equipo> update(String id, Equipo equipo);

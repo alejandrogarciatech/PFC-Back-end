@@ -26,8 +26,8 @@ public class EquipoValidation implements Validator{
 
         if (equipo.getTipoProducto() == null) {
             errors.rejectValue("tipoProducto", null, "no puede ser nulo");
-        } else if (equipo.getTipoProducto() < 500){
-            errors.rejectValue("tipoProducto", null, "el valor ha de ser mayor o igual a 500");
+        } else if (equipo.getTipoProducto().length() != 7 ){
+            errors.rejectValue("tipoProducto", null, "el tamaño del tipo de producto debe ser de 7 caracteres");
         }
     }
 

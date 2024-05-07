@@ -24,7 +24,7 @@ public class Equipo {
 
     @Min(value = 500, message = "{Min.equipo.tipoProducto}")
     @NotNull(message = "{NotNull.equipo.tipoProducto}")
-    private Long tipoProducto;
+    private String tipoProducto;
 
     private String marca;
     private String modelo;
@@ -56,10 +56,10 @@ public class Equipo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Long getTipoProducto() {
+    public String getTipoProducto() {
         return tipoProducto;
     }
-    public void setTipoProducto(Long tipoProducto) {
+    public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
     public String getMarca() {

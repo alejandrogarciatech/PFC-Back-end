@@ -16,24 +16,42 @@ public class EquipoServicioJPA implements EquipoServicio {
     @Autowired
     private EquipoRepositorio repositorio;
 
+    // LISTAR TODOS LOS EQUIPOS
     @Override
     @Transactional(readOnly = true)
     public List<Equipo> findAll() {
         return (List<Equipo>) repositorio.findAll();
     }
 
+    // BUSCAR EQUIPO POR ID
     @Override
     @Transactional(readOnly = true)
     public Optional<Equipo> findById(String id) {
         return repositorio.findById(id);
     }
 
+    // BUSCAR EQUIPO POR NOMBRE
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Equipo> findByNombre(String nombre) {
+        return repositorio.findByNombre(nombre);
+    }
+
+    // BUSCAR EQUIPO POR TIPO DE PRODUCTO
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Equipo> findByTipoProducto(String tipoProducto) {
+        return repositorio.findByTipoProducto(tipoProducto);
+    }
+
+    // GUARDAR EQUIPO
     @Override
     @Transactional
     public Equipo save(Equipo equipo) {
         return repositorio.save(equipo);
     }
 
+    // ACTUALIZAR EQUIPO
     @Transactional
     @Override
     public Optional<Equipo> update(String id, Equipo equipo) {
@@ -56,6 +74,7 @@ public class EquipoServicioJPA implements EquipoServicio {
         return equipoOptional;
     }
 
+    // ELIMINAR EQUIPO
     @Override
     @Transactional
     public Optional<Equipo> delete(String id) {

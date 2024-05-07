@@ -41,8 +41,26 @@ public class EquipoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> view(@PathVariable String id) {
+    public ResponseEntity<?> viewById(@PathVariable String id) {
         Optional<Equipo> equipoOptional = servicio.findById(id);
+        if (equipoOptional.isPresent()) {
+            return ResponseEntity.ok(equipoOptional.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<?> viewByNombre(@PathVariable String nombre) {
+        Optional<Equipo> equipoOptional = servicio.findByNombre(nombre);
+        if (equipoOptional.isPresent()) {
+            return ResponseEntity.ok(equipoOptional.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/tipoproducto/{tipoProducto}")
+    public ResponseEntity<?> viewByTipoProducto(@PathVariable String tipoProducto) {
+        Optional<Equipo> equipoOptional = servicio.findByTipoProducto(tipoProducto);
         if (equipoOptional.isPresent()) {
             return ResponseEntity.ok(equipoOptional.orElseThrow());
         }
