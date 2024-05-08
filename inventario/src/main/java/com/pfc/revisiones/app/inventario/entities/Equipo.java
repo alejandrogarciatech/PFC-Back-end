@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 //import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
+//import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,13 +22,13 @@ public class Equipo {
     @NotEmpty(message = "{NotEmpty.equipo.nombre}")
     private String nombre;
 
-    @Min(value = 500, message = "{Min.equipo.tipoProducto}")
+    //@Min(value = 500, message = "{Min.equipo.tipoProducto}")
     @NotNull(message = "{NotNull.equipo.tipoProducto}")
     private String tipoProducto;
 
     private String marca;
     private String modelo;
-    private Long nSerie;
+    private String nSerie;
     private double peso;
     private double dimensiones;
     private String qrcode;
@@ -74,10 +74,10 @@ public class Equipo {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-    public Long getnSerie() {
+    public String getnSerie() {
         return nSerie;
     }
-    public void setnSerie(Long nSerie) {
+    public void setnSerie(String nSerie) {
         this.nSerie = nSerie;
     }
     public double getPeso() {

@@ -23,11 +23,15 @@ public class SpringSecurityConfig {
         .requestMatchers(HttpMethod.GET,"/api/equipos").permitAll()
         .requestMatchers(HttpMethod.GET,"/api/equipos/{id}").permitAll()
         .requestMatchers(HttpMethod.GET,"/api/usuarios").permitAll()
-        .requestMatchers(HttpMethod.POST,"/api/usuarios/registro").permitAll()
-        .requestMatchers(HttpMethod.POST,"/api/equipos").permitAll()
         .requestMatchers(HttpMethod.GET,"/v1/qrcode").permitAll()
+
+        .requestMatchers(HttpMethod.POST,"/api/usuarios/registro").permitAll()
+        .requestMatchers(HttpMethod.POST,"/api/equipos/crear").permitAll()
+        
         .requestMatchers(HttpMethod.DELETE,"/api/equipos/{id}").permitAll()
+
         .requestMatchers(HttpMethod.PUT,"/api/equipos/{id}").permitAll()
+
         .anyRequest().authenticated())
         .csrf(config -> config.disable())
         .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -35,11 +35,13 @@ public class EquipoController {
     @Autowired
     private EquipoValidation validation;
 
+    // MOSTRAR TODOS LOS EQUIPOS
     @GetMapping
     public List<Equipo> list() {
         return servicio.findAll();
     }
 
+    // MOSTRAR EQUIPO POR ID
     @GetMapping("/{id}")
     public ResponseEntity<?> viewById(@PathVariable String id) {
         Optional<Equipo> equipoOptional = servicio.findById(id);
@@ -49,6 +51,7 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
+    // MOSTRAR EQUIPO POR NOMBRE
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<?> viewByNombre(@PathVariable String nombre) {
         Optional<Equipo> equipoOptional = servicio.findByNombre(nombre);
@@ -58,6 +61,7 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
+    // MOSTRAR EQUIPO POR TIPO DE PRODUCTO  
     @GetMapping("/tipoproducto/{tipoProducto}")
     public ResponseEntity<?> viewByTipoProducto(@PathVariable String tipoProducto) {
         Optional<Equipo> equipoOptional = servicio.findByTipoProducto(tipoProducto);
@@ -67,9 +71,10 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
+    // CREAR EQUIPO Y GENERAR CODIGO QR
     @Autowired
     private QrCodeService barCodeService;
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<?> create(@Valid @RequestBody Equipo equipo, BindingResult result) throws Exception{
         validation.validate(equipo, result);
         if(result.hasFieldErrors()){
@@ -81,6 +86,7 @@ public class EquipoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEquipo);
     }
 
+    // ACTUALIZAR EQUIPO
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Equipo equipo, BindingResult result, @PathVariable String id) {
         validation.validate(equipo, result);
@@ -94,6 +100,7 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
+    // ELIMINAR EQUIPO
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         Optional<Equipo> equipoOptional = servicio.delete(id);
@@ -103,6 +110,7 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
+    // VALIDACION DE ERRORES
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errors = new HashMap<>();
 
