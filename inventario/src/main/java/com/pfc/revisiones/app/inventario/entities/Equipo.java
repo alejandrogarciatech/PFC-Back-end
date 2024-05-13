@@ -1,15 +1,16 @@
 package com.pfc.revisiones.app.inventario.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-//import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-//import jakarta.validation.constraints.Size;
 
 @Entity
 
@@ -22,7 +23,6 @@ public class Equipo {
     @NotEmpty(message = "{NotEmpty.equipo.nombre}")
     private String nombre;
 
-    //@Min(value = 500, message = "{Min.equipo.tipoProducto}")
     @NotNull(message = "{NotNull.equipo.tipoProducto}")
     private String tipoProducto;
 
@@ -31,18 +31,15 @@ public class Equipo {
     private String nSerie;
     private double peso;
     private double dimensiones;
-    private String qrcode;
-
-    public String getQrcode() {
-        return qrcode;
-    }
-
-    public void setQrcode(String codigoBarras) {
-        this.qrcode = codigoBarras;
-    }
-    
     @NotBlank(message = "{NotBlank.equipo.ubicacion}")
     private String ubicacion;
+    private String qrcode;
+
+    @OneToMany (mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Incidencia> incidencias;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public String getId() {
         return id;
@@ -98,4 +95,16 @@ public class Equipo {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
+    
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String codigoBarras) {
+        this.qrcode = codigoBarras;
+    }
+
+    public Equipo() {
+    }
+
 }

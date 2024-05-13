@@ -6,10 +6,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-
-import java.awt.image.BufferedImage; // Add this import statement
+import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
-import java.nio.file.Path; // Add this import statement
+import java.nio.file.Path;
 
 @Service
 public class QrCodeService {
@@ -39,22 +38,4 @@ public class QrCodeService {
             throw new Exception("Error al generar la imagen del código QR", e);
         }
     }
-/*
-    @RequestMapping(value = "/api/qrcodes/{id}", method = RequestMethod.DELETE)
-    public static ResponseEntity<?> deleteQRCode(@PathVariable("id") String id) {
-        // Obtén la ruta de la imagen asociada al código QR
-        Path path = Paths.get("src/main/resources/static/barcodes/" + id + ".png");
-
-        // Elimina el código QR
-        QrCodeService.deleteQRCode(id);
-
-        // Elimina la imagen asociada al código QR
-        File imageFile = new File(path.toString());
-        if (imageFile.exists()) {
-            imageFile.delete();
-        }
-
-        return ResponseEntity.ok().build();
-    }
-    */
 }

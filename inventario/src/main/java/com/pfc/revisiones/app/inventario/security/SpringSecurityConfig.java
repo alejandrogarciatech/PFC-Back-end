@@ -21,16 +21,21 @@ public class SpringSecurityConfig {
     SecurityFilterChain filtertChain(HttpSecurity http) throws Exception{
         return http.authorizeHttpRequests((authz) -> authz
         .requestMatchers(HttpMethod.GET,"/api/equipos").permitAll()
+        .requestMatchers(HttpMethod.GET,"/api/incidencias").permitAll()
         .requestMatchers(HttpMethod.GET,"/api/equipos/{id}").permitAll()
+        .requestMatchers(HttpMethod.GET,"/api/incidencias/{id}").permitAll()
+        .requestMatchers(HttpMethod.GET,"/api/incidencias/equipo/{equipoId}").permitAll()
         .requestMatchers(HttpMethod.GET,"/api/usuarios").permitAll()
         .requestMatchers(HttpMethod.GET,"/v1/qrcode").permitAll()
 
         .requestMatchers(HttpMethod.POST,"/api/usuarios/registro").permitAll()
         .requestMatchers(HttpMethod.POST,"/api/equipos/crear").permitAll()
+        .requestMatchers(HttpMethod.POST,"/api/incidencias/crear").permitAll()
         
         .requestMatchers(HttpMethod.DELETE,"/api/equipos/{id}").permitAll()
 
         .requestMatchers(HttpMethod.PUT,"/api/equipos/{id}").permitAll()
+        .requestMatchers(HttpMethod.PUT,"/api/incidencias/{id}").permitAll()
 
         .anyRequest().authenticated())
         .csrf(config -> config.disable())
