@@ -35,6 +35,19 @@ interface EquipoRepositorio {
   +Optional<Equipo> findByNombre(String nombre)
   +Optional<Equipo> findByTipoProducto(String tipoProducto)
 }
+class EquipoController {
+  -EquipoServicio servicio
+  -EquipoValidation validation
+  -QrCodeService barCodeService
+  +List<Equipo> list()
+  +ResponseEntity<?> viewById(String id)
+  +ResponseEntity<?> viewByNombre(String nombre)
+  +ResponseEntity<?> viewByTipoProducto(String tipoProducto)
+  +ResponseEntity<?> create(Equipo equipo, BindingResult result)
+  +ResponseEntity<?> update(Equipo equipo, BindingResult result, String id)
+  +ResponseEntity<?> delete(String id)
+  -ResponseEntity<?> validation(BindingResult result)
+}
 interface EquipoServicio {
   +List<Equipo> findAll()
   +Optional<Equipo> findById(String id)
@@ -54,19 +67,7 @@ class EquipoServicioJPA {
   +Optional<Equipo> update(String id, Equipo equipo)
   +Optional<Equipo> delete(String id)
 }
-class EquipoController {
-  -EquipoServicio servicio
-  -EquipoValidation validation
-  -QrCodeService barCodeService
-  +List<Equipo> list()
-  +ResponseEntity<?> viewById(String id)
-  +ResponseEntity<?> viewByNombre(String nombre)
-  +ResponseEntity<?> viewByTipoProducto(String tipoProducto)
-  +ResponseEntity<?> create(Equipo equipo, BindingResult result)
-  +ResponseEntity<?> update(Equipo equipo, BindingResult result, String id)
-  +ResponseEntity<?> delete(String id)
-  -ResponseEntity<?> validation(BindingResult result)
-}
+
 class QrCodeService {
   -static int BARCODE_WIDTH
   -static int BARCODE_HEIGHT

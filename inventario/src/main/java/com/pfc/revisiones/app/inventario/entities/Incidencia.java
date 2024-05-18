@@ -1,5 +1,10 @@
 package com.pfc.revisiones.app.inventario.entities;
 
+import java.time.LocalDateTime;
+
+//import java.time.LocalDateTime;
+
+//import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,14 +36,8 @@ public class Incidencia {
     @Embedded
     private Audit audit = new Audit();
 
-    /*
-     * @Column(name = "creado_en")
-     * private LocalDateTime createAt;
-     * 
-     * @Column(name = "actualizado_en")
-     * private LocalDateTime updateAt;
-     */
     public Incidencia() {
+        // constructor sin argumentos
     }
 
     public Incidencia(Long id, String descripcion, String estado, String prioridad, Long idUsuario, String idAlbaran) {
@@ -106,6 +105,29 @@ public class Incidencia {
         this.equipo = equipo;
     }
 
+    public LocalDateTime getCreateAt() {
+        return audit.getCreateAt();
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return audit.getUpdateAt();
+    }
+
+    public void setCreateAt() {
+        if (this.audit == null) {
+            this.audit = new Audit();
+        }
+        this.audit.setCreateAt(null);
+    }
+    
+    public void setUpdateAt() {
+        if (this.audit == null) {
+            this.audit = new Audit();
+        }
+        this.audit.setUpdateAt(null);
+    }
+
+
     /*
      * @PrePersist
      * public void prePersist(){
@@ -134,7 +156,8 @@ public class Incidencia {
      */
     @Override
     public String toString() {
-        return "{audit=" + audit.getCreateAt() + "audit=" + audit.getUpdateAt() + ", descripcion=" + descripcion + ", equipo=" + equipo + ", estado=" + estado
+        return "{audit=" + audit.getCreateAt() + "audit=" + audit.getUpdateAt() + ", descripcion=" + descripcion
+                + ", equipo=" + equipo + ", estado=" + estado
                 + ", id=" + id + ", idAlbaran=" + idAlbaran + ", idUsuario=" + idUsuario + ", prioridad=" + prioridad
                 + "}";
     }

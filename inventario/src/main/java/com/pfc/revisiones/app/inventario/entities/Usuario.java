@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pfc.revisiones.app.inventario.validation.ExistsByUsername;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +30,12 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ExistsByUsername
+    @NotBlank
+    @Size(min = 4, max = 12)
+    @Column(unique = true)
+    private String username;
+
     private String nombre;
     private String apellido;
     private String puesto;
@@ -40,7 +47,7 @@ public class Usuario {
     @NotBlank
     @Size(min = 8)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // No muestra la contraseña en resultados. Solo en la escritura
-    private String contrasena;
+    private String password;
 
     private String telefono;
     //private Date fNacimiento
@@ -78,6 +85,14 @@ public class Usuario {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -110,12 +125,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getTelefono() {

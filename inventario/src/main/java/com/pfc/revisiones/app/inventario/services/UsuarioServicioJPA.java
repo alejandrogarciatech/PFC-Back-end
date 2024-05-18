@@ -47,8 +47,13 @@ public class UsuarioServicioJPA implements UsuarioServicio{
         }
 
         usuario.setRoles(roles);
-        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return repositorio.save(usuario);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return repositorio.existsByUsername(username);
     }
 
 }
