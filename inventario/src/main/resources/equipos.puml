@@ -1,5 +1,5 @@
 @startuml nombre
-class Equipo{
+entity Equipo{
   -String id
   -String nombre
   -String tipoProducto
