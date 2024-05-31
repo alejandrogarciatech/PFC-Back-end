@@ -53,6 +53,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/incidencias/crear").permitAll()
 
                 .requestMatchers(HttpMethod.DELETE, "/api/equipos/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/api/incidencias/{id}").permitAll()
 
                 .requestMatchers(HttpMethod.PUT, "/api/equipos/{id}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/incidencias/{id}").permitAll()

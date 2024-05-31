@@ -61,7 +61,7 @@ public class EquipoController {
         return ResponseEntity.notFound().build();
     }
 
-    // MOSTRAR EQUIPO POR TIPO DE PRODUCTO  
+    // MOSTRAR EQUIPO POR TIPO DE PRODUCTO
     @GetMapping("/tipoproducto/{tipoProducto}")
     public ResponseEntity<?> viewByTipoProducto(@PathVariable String tipoProducto) {
         Optional<Equipo> equipoOptional = servicio.findByTipoProducto(tipoProducto);
@@ -74,10 +74,11 @@ public class EquipoController {
     // CREAR EQUIPO Y GENERAR CODIGO QR
     @Autowired
     private QrCodeService barCodeService;
+
     @PostMapping("/crear")
-    public ResponseEntity<?> create(@Valid @RequestBody Equipo equipo, BindingResult result) throws Exception{
+    public ResponseEntity<?> create(@Valid @RequestBody Equipo equipo, BindingResult result) throws Exception {
         validation.validate(equipo, result);
-        if(result.hasFieldErrors()){
+        if (result.hasFieldErrors()) {
             return validation(result);
         }
         Equipo savedEquipo = servicio.save(equipo);
