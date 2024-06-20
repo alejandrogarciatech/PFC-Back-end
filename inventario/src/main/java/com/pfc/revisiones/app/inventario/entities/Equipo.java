@@ -1,6 +1,9 @@
 package com.pfc.revisiones.app.inventario.entities;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -42,7 +45,12 @@ public class Equipo {
 
     // Relación uno a muchos con la entidad Incidencia
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Incidencia> incidencias;
+    @JsonManagedReference
+    private Set<Incidencia> incidencias;
+
+    // Relación uno a muchos con la entidad Revision
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Revision> revisiones;
 
     // Embebed indica que la clase Audit será embebida en la clase Equipo
     @Embedded
@@ -129,8 +137,26 @@ public class Equipo {
         this.qrcode = codigoBarras;
     }
 
+    public Set<Incidencia> getIncidencias() {
+        return incidencias;
+    }
+
+    public void setIncidencias(Set<Incidencia> incidencias) {
+        this.incidencias = incidencias;
+    }
+
+    public Set<Revision> getRevisiones() {
+        return revisiones;
+    }
+
+    public void setRevisiones(Set<Revision> revisiones) {
+        this.revisiones = revisiones;
+    }
+
     // Constructor de la clase vacío
     public Equipo() {
+        incidencias = new HashSet<>();
+        revisiones = new HashSet<>();
     }
 
 }

@@ -47,16 +47,22 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/albaranes").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/espacios").permitAll()
                 .requestMatchers(HttpMethod.GET, "/v1/qrcode").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/revisiones").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/revisiones/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/revisiones/equipo/{equipoId}").permitAll()
 
                 .requestMatchers(HttpMethod.POST, "/api/usuarios/registro").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/equipos/crear").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/incidencias/crear").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/revisiones/crear").permitAll()
 
                 .requestMatchers(HttpMethod.DELETE, "/api/equipos/{id}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/api/incidencias/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/api/revisiones/{id}").permitAll()
 
                 .requestMatchers(HttpMethod.PUT, "/api/equipos/{id}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/incidencias/{id}").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/api/revisiones/{id}").permitAll()
 
                 .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))

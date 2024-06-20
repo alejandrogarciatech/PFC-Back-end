@@ -30,7 +30,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 
         if (usuarioOptional.isEmpty()) {
             throw new UsernameNotFoundException(
-                    String.format("Usuario %s no se encuentra en la base de datos", username));
+                    "Usuario %s no se encuentra en la base de datos".formatted(username));
         }
 
         Usuario usuario = usuarioOptional.orElseThrow();
